@@ -56,4 +56,13 @@ There is a precision/recall trade-off.
 ### The SGD Classifier
 For each instance, it computes a score based on a decision function. If that score is greater than a threshold, it assigns the instance to the positive class; otherwise it assigns it to the negative class.
 Increasing this threshold can result in false positives becoming true negatives (increasing the precision) and true positives becoming false negatives (decreasing the recall). Vice versa for decreasing the threshold.
+
 Sklearn gives you the decision scores in the decision_function() method which can be used to make manual predictions to classify an instance.
+
+The SGD classifier uses a threshold of 0. You can choose your own threshold, compare the output to the decision score to get a manual prediction.
+
+### Deciding the threshold
+
+To decide the threshold to use, obtain the scores of all instances in the training set. Graph a curve to compute the precision and recall for all possible thresholds (an infinite threshold gives a recall of 1 and precision of 0). You could also graph precision against recall.
+
+**ROC curves**
