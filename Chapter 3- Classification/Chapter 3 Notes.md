@@ -66,3 +66,17 @@ The SGD classifier uses a threshold of 0. You can choose your own threshold, com
 To decide the threshold to use, obtain the scores of all instances in the training set. Graph a curve to compute the precision and recall for all possible thresholds (an infinite threshold gives a recall of 1 and precision of 0). You could also graph precision against recall.
 
 **ROC curves**
+
+The receiver operating characteristic (ROC) curve another tool used with binary classifiers.
+The ROC curve plots true positive rate (TPR, same as recall) against the false positive rate (FPR, also called 'fall-out'). The FPR is the ratio of negative instances that are incorrectly classified as positive. It is 1 - TNR, the true negative rate (also called specificity).
+Hence, the ROC curve plots sensitivity (recall, TPR) vs (1 - specificity).
+
+On an ROC curve a straight x=y line represents the ROC curve of a purely random classifier. Good classifiers stay as far away from the line as possible, towards the top left corner.
+
+**Comparing classifiers: Area under the curve (AUC)**
+One way to compare classifiers is to measure the area under the curve (AUC). 
+Perfect classifiers have an ROC AUC equal to 1, whereas a purely random classifier has an ROC AUC equal to 0.5.
+
+**When to use the ROC curve vs precision/recall curve**
+Prefer the PR curve when the positive class is rate or the false positives matter than the false negatives.
+Otherwise, use the ROC curve.
