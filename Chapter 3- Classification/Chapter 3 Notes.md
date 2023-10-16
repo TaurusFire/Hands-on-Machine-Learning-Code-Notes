@@ -54,6 +54,8 @@ There is a precision/recall trade-off.
 **Precision/Recall Trade-off**
 
 ### The SGD Classifier
+The SGD Classifier is a strictly binary classifier.
+
 For each instance, it computes a score based on a decision function. If that score is greater than a threshold, it assigns the instance to the positive class; otherwise it assigns it to the negative class.
 Increasing this threshold can result in false positives becoming true negatives (increasing the precision) and true positives becoming false negatives (decreasing the recall). Vice versa for decreasing the threshold.
 
@@ -80,3 +82,19 @@ Perfect classifiers have an ROC AUC equal to 1, whereas a purely random classifi
 **When to use the ROC curve vs precision/recall curve**
 Prefer the PR curve when the positive class is rate or the false positives matter than the false negatives.
 Otherwise, use the ROC curve.
+
+## Multiclass Classification
+
+Multiclass (multinomial) classifiers can distinguish between two or more classes.
+
+### Using Binary Classifiers for Multiclass Classification
+
+**One vs The Rest (OvR) / One vs All(OvA)**
+You could create a binary classifier for each class and assign the instance to the class with the highest decision score/probability.
+
+**One vs One (OvO)**
+You could also train a binary classifier on each possible pair of classes. If there are N classes then you have to train N(N-1)/2 classifiers. To classify an instance you have to run the instance through each classifier and see which class wins the most duels.
+The advantage of OvO is that each classifier only needs to be trained on the instances of the relevant classes it is assigned to distinguish between.
+
+**OvO or OvR?**
+Some algorithms scale poorly with the size of the training set, so for these algorithms OvO is preferred since it is faster to train many classifiers on small training sets compared to fewer classifiers on large training sets. For most binary algorithms, OvR is preferred instead.
