@@ -104,3 +104,49 @@ Some algorithms scale poorly with the size of the training set, so for these alg
 How do we go about improving a promising model? Analyse the types of errors.
 
 First look at confusion matrix. Since there will be more than two types it might be hard to read. Instead create a coloured version of the confusion matrix, e.g. using the ConfusionMatrixDisplay.from_predictions() function.
+
+**Interpreting results**
+
+If results are below what is wanted,
+
+- Probably gather more training data that will allow the classifier to distinguish between true data and data it is commonly mistaken for.
+- Or engineer new features that would help the classifier
+- Preprocess the images to make some patterns stand out more
+
+*Analyze individual errors*
+You can plot instances on a confusion matrix to visualise what the classifier is doing and potentially see what it is doing wrong.
+
+### How does SGD classify MNIST data?
+
+SGDClassifier, which is just a linear model, assigns a weight per class to each pixel, and when it sees a new image it just sums up the weighted pixel intensities to get a score for each class. 
+
+Since 3s and 5s differ by only a few pixels, the model easily confuses them.
+
+*Data Augmentation*
+
+One way to reduce the 3/5 confusion is to preprocess the images to ensure that they are well centered and not too rotated. However, this requires predicting the correct rotation of each image. 
+
+A much simpler approach consists of augmenting the training set with slightly shifted and rotated variants of the training images. This will force the model to learn to be more tolerant to such variations. This is called data augmentation.
+
+## Multilabel Classification
+
+SGD classifiers can support multilabel classification.
+Multilabel classifications systems output multiple binary tags (one for the presence of each class).
+Each instance in the training input data should have multiple tags.
+
+**Chain Classifiers**
+
+If you are using a classifier that does not natively support multilabel classification, such as SVC, you can train one model per label. However, the strategy will have a hard time capturing the dependencies between labels. To deal with this, models can be organized ina chain - when a model makes a prediction, it uses the input features plus all the predictions of the models that come before it in the chain. Sklearn has a 'ChainClassifier' class that does this. It uses true labels for training, feeding each model the appropriate labels depending on their position in the chain. However, if the cv hyperparameter is set, it uses cross-validation to get out-of-sample predictions from each trained model for every instance in the training set, and these predictions are used to train all the models later in the chain.
+
+### Evaluating a multilabel classifier
+
+You could measure the F1 score for each individual label (or any other binary classifier metric), then compute the average score.
+
+You might want to give more weight to some classes especially if they are more common than others. In this case you can give each label a weight equal to its support (the number of instances with that target label).
+
+## Multioutput Classification
+(also called multiclass classification)
+
+Multioutput classification is a generalization of multilabel classification where each label can be multiclass (i.e. can have more than 2 possible values). 
+
+The line between multioutput classification and regression is often blurry. Multioutput systems are not limited to classification tasks. You could even have a system that outputs multiple labels per instance, including both class and value labels.
