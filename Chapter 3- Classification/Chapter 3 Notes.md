@@ -98,3 +98,9 @@ The advantage of OvO is that each classifier only needs to be trained on the ins
 
 **OvO or OvR?**
 Some algorithms scale poorly with the size of the training set, so for these algorithms OvO is preferred since it is faster to train many classifiers on small training sets compared to fewer classifiers on large training sets. For most binary algorithms, OvR is preferred instead.
+
+### Error Analysis
+
+How do we go about improving a promising model? Analyse the types of errors.
+
+First look at confusion matrix. Since there will be more than two types it might be hard to read. Instead create a coloured version of the confusion matrix, e.g. using the ConfusionMatrixDisplay.from_predictions() function.
