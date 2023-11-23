@@ -15,6 +15,7 @@ It is often a good idea to use clones of models at each iteration in cross-valid
 ## Binary Classifiers
 Binary classifiers distinguish between two classes. For example, 5 and not 5.
 
+
 **SGD**
 The Stochastic Gradient Descent classifier is capable of handling large datasets efficiently. This is because SGD deals with training instances one at a time. This also makes it suited for online learning.
 
